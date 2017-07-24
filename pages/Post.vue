@@ -8,13 +8,10 @@
                         <router-link to="/index">main</router-link>
                     </b-button>
                     <b-button>
-                        <router-link to="/Post">post</router-link>
+                        <router-link to="/post">post</router-link>
                     </b-button>
                     <b-button>
-                        <router-link to="/Category">category</router-link>
-                    </b-button>
-                    <b-button>
-                        <router-link to="/Search">search</router-link>
+                        <router-link to="/category">category</router-link>
                     </b-button>
                 </b-button-group>
     
@@ -28,6 +25,12 @@
                 <div>
                     {{title}}
                 </div>
+                <br>
+                <div>
+                    {{content}}
+    
+                </div>
+    
             </div>
     
         </div>
@@ -38,9 +41,10 @@
 
 export default {
     async asyncData({ app }) {
-        let { posts } = await app.$axios.get('http://www.europeancitiesmarketing.com/wp-json/wp/v2/posts').data
+        let posts = (await app.$axios.get('http://www.europeancitiesmarketing.com/wp-json/wp/v2/posts')).data
         return {
-            title: posts[1].status
+            title: posts[1].title.rendered,
+            content: posts[1].content.rendered
         }
     }
 }
