@@ -22,15 +22,12 @@
                     I wanna go there
                 </b-card>
     
-                <div>
-                    {{title}}
-                </div>
                 <br>
-                <div>
-                    {{content}}
-    
+                <div v-for="post in posts" :key="post.id">
+                    <div class="title" v-html="post.title.rendered"></div>
+                    <router-link :to="'/posts/'+post.id">read more</router-link>
+                    <br>
                 </div>
-    
             </div>
     
         </div>
@@ -43,8 +40,7 @@ export default {
     async asyncData({ app }) {
         let posts = (await app.$axios.get('http://www.europeancitiesmarketing.com/wp-json/wp/v2/posts')).data
         return {
-            title: posts[1].title.rendered,
-            content: posts[1].content.rendered
+            posts: posts
         }
     }
 }
@@ -64,21 +60,9 @@ export default {
     font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     /* 1 */
     display: block;
-    font-weight: 300;
-    font-size: 100px;
+    font-weight: 100;
+    font-size: 20px;
     color: #35495e;
     letter-spacing: 1px;
-}
-
-.subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-}
-
-.links {
-    padding-top: 15px;
 }
 </style>

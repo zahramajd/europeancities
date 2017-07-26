@@ -15,8 +15,13 @@
                     </b-button>
                 </b-button-group>
     
-                <br> coming soon
+                <br>
+                <br>
+    
             </div>
+    
+            <div class="title" v-html="post.title.rendered"></div>
+            <div v-html="post.content.rendered"></div>
     
         </div>
     </section>
@@ -25,10 +30,11 @@
 <script>
 
 export default {
-    async asyncData({ app }) {
-        let posts = (await app.$axios.get('http://www.europeancitiesmarketing.com/wp-json/wp/v2/posts')).data
+
+    async asyncData({ params, app }) {
+        let post = (await app.$axios.get('http://www.europeancitiesmarketing.com/wp-json/wp/v2/posts/' + params.id)).data
         return {
-            posts: posts
+            post: post
         }
     }
 }
@@ -48,8 +54,8 @@ export default {
     font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     /* 1 */
     display: block;
-    font-weight: 1000;
-    font-size: 50px;
+    font-weight: 200;
+    font-size: 30px;
     color: #35495e;
     letter-spacing: 1px;
 }
